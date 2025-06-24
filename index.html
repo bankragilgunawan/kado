@@ -894,41 +894,50 @@ function hapusVideo(id) {
 }
 </script>
 
+
+<button id="musikBtn" onclick="toggleMusik()" style="
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 9999;
+  background: #fff;
+  border-radius: 50%;
+  border: 2px solid #d6336c;
+  width: 50px;
+  height: 50px;
+  font-size: 1.3rem;
+  color: #d6336c;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);">
+  🔈
+</button>
+
 <script>
-    let musikAktif = false;
+let musikAktif = false;
 
 function toggleMusik() {
   const audio = document.getElementById("musikLatar");
   const btn = document.getElementById("musikBtn");
 
+  if (!audio) {
+    alert("Audio tidak ditemukan!");
+    return;
+  }
+
   if (musikAktif) {
     audio.pause();
     btn.innerHTML = "🔈";
   } else {
-    audio.play();
-    btn.innerHTML = "🔊";
+    audio.play().then(() => {
+      btn.innerHTML = "🔊";
+    }).catch((err) => {
+      alert("Browser menolak autoplay. Tap dulu layarnya.");
+      console.error(err);
+    });
   }
 
   musikAktif = !musikAktif;
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  const audio = document.getElementById("musikLatar");
-  setTimeout(() => {
-    audio.play().then(() => {
-      musikAktif = true;
-      document.getElementById("musikBtn").innerHTML = "🔊";
-    }).catch(() => {
-      // Autoplay diblokir → user harus klik tombol dulu
-    });
-  }, 1000);
-});
-
 </script>
-<audio id="musikLatar" loop>
-  <source src="https://bankragilgunawan.github.io/kado/Falcon.mp3" type="audio/mpeg">
-</audio>
-
 </script>
 </body>
 </html>
