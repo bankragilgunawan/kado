@@ -65,18 +65,77 @@
   font-weight: bold;
 }
 
-    .kepala {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1rem;
-    }
-    .kepala img {
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
-    }
+.foto-ngambang {
+  width: 100%;
+  max-width: 300px;
+  margin: 1rem auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.foto-ngambang:hover {
+  transform: scale(1.03);
+}
+
+.fullscreen-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fullscreen-overlay img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+.fullscreen-overlay .tombol-tutup {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.kepala-cinta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  color: #d6336c;
+  margin-top: 2rem;
+  gap: 0.5rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  flex-wrap: wrap;
+}
+
+.kepala-cinta .logo-hati {
+  font-size: 2.8rem;
+  animation: berdenyut 1.8s infinite ease-in-out;
+  transform-origin: center;
+  color: #e63946;
+}
+
+@keyframes berdenyut {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.2); }
+}
 
     .galeri {
       display: flex;
@@ -472,17 +531,25 @@
 ">🔈</button>
 <source src="https://bankragilgunawan.github.io/kado/Falcon.mp3" type="audio/mpeg">
     
-  <div class="kepala">
-    <span><strong>Andi</strong></span>
-    <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/10000064902652039691045067748.png" alt="Love">
-    <span><strong>Sinta</strong></span>
-  </div>
+    <div class="kepala-cinta">
+  <span class="nama-pria">Andi</span>
+  <span class="logo-hati">❤</span>
+  <span class="nama-wanita">Sinta</span>
+</div>
+
+  <div class="foto-container">
+  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/rafaelnatasya001-w9l31hdo1248739476561258899.jpg" alt="Foto Pasangan" class="foto-ngambang" onclick="bukaFotoFullscreen(this)">
+</div>
 
   <!-- Galeri -->
+  <div class="foto-container">
 <div id="galeri" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:1rem 0;">
-  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/tempat-prewedding-di-bali-1024x1024-13900240424686257108.jpg" onclick="bukaLightbox(0)" style="width:80px;height:80px;border-radius:8px;cursor:pointer;">
-  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/pngwing2859925213187626330.jpg" onclick="bukaLightbox(1)" style="width:80px;height:80px;border-radius:8px;cursor:pointer;">
-  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/danau-tamblingan-prewedding-1024x6833830230595608430453-1.jpg" onclick="bukaLightbox(2)" style="width:80px;height:80px;border-radius:8px;cursor:pointer;">
+  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/tempat-prewedding-di-bali-1024x1024-13900240424686257108.jpg" style="width:80px;height:80px; alt="Foto Pasangan" class="foto-ngambang" onclick="bukaFotoFullscreen(this)">
+
+<img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/danau-tamblingan-prewedding-1024x6833830230595608430453-1.jpg" style="width:80px;height:80px; alt="Foto Pasangan" class="foto-ngambang" onclick="bukaFotoFullscreen(this)">
+
+<img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/perbedaan-prewedding-dan-post-wedding-768x5224317185891897023401-1.jpg" style="width:80px;height:80px; alt="Foto Pasangan" class="foto-ngambang" onclick="bukaFotoFullscreen(this)">
+
 </div>
 
 <!-- Lightbox -->
@@ -595,6 +662,11 @@
   <p class="footer-desc">
     Terima jasa: Buat Website, Aplikasi, Undangan Online, dll
   </p>
+</div>
+
+<div id="fullscreenFoto" class="fullscreen-overlay" onclick="tutupFotoFullscreen()">
+  <img id="fullscreenGambar" src="" alt="Foto Full" />
+  <button class="tombol-tutup">×</button>
 </div>
 
  <script>
@@ -1080,10 +1152,22 @@ function lihatDokumen(el) {
   document.getElementById("isiPopup").textContent = isi;
   document.getElementById("catatanPopup").style.display = "block";
 }
+
+function bukaFotoFullscreen(img) {
+  const overlay = document.getElementById("fullscreenFoto");
+  const gambar = document.getElementById("fullscreenGambar");
+  gambar.src = img.src;
+  overlay.style.display = "flex";
+}
+
+function tutupFotoFullscreen() {
+  document.getElementById("fullscreenFoto").style.display = "none";
+}
+
 </script>
 <div id="catatanPopup" class="popup-catatan">
   <div class="popup-isi" id="isiPopup"></div>
   <button onclick="tutupPopupCatatan()" class="popup-tutup">Tutup</button>
 </div>
 </body>
-</html>
+    </html>
