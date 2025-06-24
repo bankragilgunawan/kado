@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Musik</title>
+</head>
+<body>
+  <button onclick="playMusik()">Mainkan Musik</button>
+  <audio id="musik" loop>
+    <source src="https://bankragilgunawan.github.io/kado/Falcon.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function playMusik() {
+      const audio = document.getElementById("musik");
+      audio.play()
+        .then(() => alert("Musik berhasil diputar 🎵"))
+        .catch((e) => alert("Gagal: " + e.message));
+    }
+  </script>
+</body>
+</html>
