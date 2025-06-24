@@ -4,467 +4,925 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kado Cinta</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to right, #ffe6e6, #fffaf0);
-      color: #333;
-    }
-    .hidden { display: none !important; }
-
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 2rem;
+      margin: 0;
+      padding: 0;
       text-align: center;
-      animation: fadeIn 1s ease-in;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
-    .logo {
-      width: 80px;
-      margin-bottom: 1rem;
-    }
-
-    .foto {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    h1 {
-      font-size: 2.2em;
-      font-family: 'Dansing scrpt', cursive;
-      color: #d6336c;
-      margin-top: 1rem;
-    }
-
-    .deskripsi {
-      font-size: 1.1rem;
-      margin: 0.5rem 0 2rem;
-    }
-
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .love-btn {
-      background: #ffdde1;
-      border: none;
-      border-radius: 50%;
-      padding: 2rem;
-      font-size: 1.5rem;
-      color: #d6336c;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-    .love-btn:hover {
-      background: #ffc2d1;
-      transform: scale(1.1);
-    }
-
-    .label {
-      font-size: 0.9rem;
-      margin-top: 0.3rem;
-      color: #555;
-    }
-
-    footer {
-      margin-top: 3rem;
-      font-size: 0.85rem;
-      color: #777;
-    }
-
-    #galeriFoto {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      margin-top: 1rem;
-      padding-bottom: 0.5rem;
-    }
-    #galeriFoto img {
-      height: 100px;
-      border-radius: 8px;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-
-    /* Lightbox Fullscreen */
-    #lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
+    .kepala {
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 999;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .kepala img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .galeri {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .galeri img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
       flex-direction: column;
     }
     #lightbox img {
-      max-width: 90%;
-      max-height: 80%;
-      border-radius: 1rem;
-      transition: 0.3s ease;
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 12px;
     }
-    #lightbox .nav {
+    .nav, .close {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
       font-size: 2rem;
       color: white;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.4);
       padding: 0.5rem;
       border-radius: 50%;
       cursor: pointer;
       user-select: none;
     }
-    #lightbox .prev { left: 10px; }
-    #lightbox .next { right: 10px; }
-    #lightbox .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 1.8rem;
-      color: white;
-      cursor: pointer;
+    .close { top: 1rem; right: 1rem; }
+    .prev { left: 1rem; top: 50%; transform: translateY(-50%); }
+    .next { right: 1rem; top: 50%; transform: translateY(-50%); }
+
+    .ucapan {
+      margin: 2rem auto;
+      max-width: 500px;
+      padding: 1rem;
     }
+    .ucapan textarea {
+      width: 100%;
+      height: 100px;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    .ucapan button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background: #d6336c;
+      color: white;
+      font-weight: bold;
+    }
+
+    .floating-menu-container {
+      margin-top: 2rem;
+    }
+
+    .main-menu-btn {
+      background: #ffdde1;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      font-size: 2rem;
+      color: #d6336c;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .main-menu-btn.open {
+      transform: scale(1.2) rotate(45deg);
+      box-shadow: 0 0 20px rgba(255, 105, 135, 0.4);
+    }
+
+    .sub-menu {
+      margin-top: 1.5rem;
+      display: none;
+    }
+    .sub-menu.show {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+      gap: 1.5rem 2.5rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .menu-grid button {
+      background: #ffdde1;
+      border: none;
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
+      font-size: 2rem;
+      color: #d6336c;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .menu-grid button:hover {
+      transform: scale(1.1);
+    }
+
+    .label {
+      text-align: center;
+      margin-top: 0.3rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    .papan-quotes {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 1.2rem 1.5rem;
+  margin: 2rem auto;
+  max-width: 400px;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #444;
+  position: relative;
+  z-index: 1;
+}
+
+.papan-quotes::before {
+  content: "💌";
+  font-size: 1.5rem;
+  position: absolute;
+  top: -0.7rem;
+  left: 1rem;
+  background: #fff;
+  padding: 0 0.3rem;
+}
+
+.footer-box {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 3rem auto 2rem;
+  max-width: 90%;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #25D366;
+  font-size: 1.1rem;
+  font-weight: bold;
+  gap: 0.5rem;
+}
+
+.wa-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.footer-desc {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+.popup-panel {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 999;
+  padding: 1rem;
+  overflow-y: auto;
+  display: none;
+  flex-direction: column;
+}
+
+.popup-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding-bottom: 1rem;
+  z-index: 10;
+}
+
+.back-btn {
+  background: #f8d7da;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #d6336c;
+}
+
+.grid-foto {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.grid-foto-item {
+  text-align: center;
+}
+
+.grid-foto-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.grid-foto-item button {
+  margin-top: 0.5rem;
+  background: #d6336c;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.catatan-item {
+  background: #fff0f5;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+.catatan-item .waktu {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 0.3rem;
+}
+
+.catatan-buttons {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.catatan-buttons button {
+  flex: 1;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.catatan-buttons .lihat {
+  background: #fcb3c1;
+  color: white;
+}
+
+.catatan-buttons .hapus {
+  background: #d6336c;
+  color: white;
+}
+
+.grid-video {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.video-item {
+  text-align: center;
+}
+
+.video-item video {
+  width: 100%;
+  max-height: 200px;
+  border-radius: 10px;
+  background: #000;
+}
+
+.video-item button {
+  margin-top: 0.4rem;
+  background: #d6336c;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.grid-dokumen {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.dokumen-item {
+  background: #f3f3ff;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.dokumen-judul {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.dokumen-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dokumen-buttons button {
+  flex: 1;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.dokumen-buttons .lihat {
+  background: #8a84e2;
+  color: white;
+}
+
+.dokumen-buttons .hapus {
+  background: #d6336c;
+  color: white;
+}
   </style>
-  <style>
-  .foto-slider {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-  .foto-slider img {
-    flex: 0 0 100%;
-    height: 300px;
-    object-fit: cover;
-    scroll-snap-align: center;
-    border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-</style>
 </head>
 <body>
-    <audio id="musik" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" autoplay loop></audio>
-    <button id="muteBtn" onclick="toggleMusik()" style="
-  position:fixed; top:1rem; right:1rem;
-  background:rgba(255,255,255,0.8);
-  border:none; border-radius:50%;
-  width:40px; height:40px;
-  font-size:1.2rem; z-index:99;">
-  🔊
-</button>
-  <div class="container">
-    <h1 id="judulKetik" style="font-size:2rem;margin-top:1rem;text-align:center;"></h1>
-    <!-- Galeri Swipeable -->
-<div class="foto-slider" id="slider">
-  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/pngwing8823617845623531065.png" />
-  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/qr_id1022179552362_217278814460596357611.jpeg" />
-  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/1524842677352575075013.png" />
+    <audio id="musikLatar" loop>
+  <source src="musik.mp3" type="audio/mpeg">
+  Browser tidak mendukung audio.
+</audio>
+<button id="musikBtn" onclick="toggleMusik()" style="
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 9999;
+  background: #fff;
+  border-radius: 50%;
+  border: 2px solid #d6336c;
+  width: 50px;
+  height: 50px;
+  font-size: 1.3rem;
+  color: #d6336c;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+">🔈</button>
+<source src="https://bankragilgunawan.github.io/kado/Falcon.mp3" type="audio/mpeg">
+    
+  <div class="kepala">
+    <span><strong>Andi</strong></span>
+    <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/10000064902652039691045067748.png" alt="Love">
+    <span><strong>Sinta</strong></span>
+  </div>
+
+  <!-- Galeri -->
+<div id="galeri" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:1rem 0;">
+  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/pngwing1735127298802016152.jpg" onclick="bukaLightbox(0)" style="width:80px;height:80px;border-radius:8px;cursor:pointer;">
+  <img src="https://via.placeholder.com/150/ffcccb" onclick="bukaLightbox(1)" style="width:80px;height:80px;border-radius:8px;cursor:pointer;">
+  <img src="https://via.placeholder.com/150/fce4ec" onclick="bukaLightbox(2)" style="width:80px;height:80px;border-radius:8px;cursor:pointer;">
 </div>
-    <p class="deskripsi">Hari ini bukan hanya pernikahan, tapi awal petualangan cinta yang tak berujung. Semoga kalian selalu dalam kasih dan ridho-Nya. 💐</p>
 
-    <div class="menu">
-      <div><button class="love-btn" onclick="bukaModal('album')">📸</button><div class="label">Album</div></div>
-      <div><button class="love-btn" onclick="bukaModal('catatan')">✍️</button><div class="label">Catatan</div></div>
-      <div><button class="love-btn" onclick="bukaModal('video')">🎥</button><div class="label">Video</div></div>
-      <div><button class="love-btn" onclick="bukaModal('dokumen')">📂</button><div class="label">Dokumen</div></div>
+<!-- Lightbox -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;flex-direction:column;">
+  <span onclick="tutupLightbox()" style="position:absolute;top:10px;right:20px;font-size:2rem;color:white;cursor:pointer;">✖</span>
+  <span onclick="prevFoto()" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:2rem;color:white;cursor:pointer;">❮</span>
+  <img id="lightboxImage" src="" style="max-width:90%;max-height:80%;border-radius:12px;">
+  <span onclick="nextFoto()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:2rem;color:white;cursor:pointer;">❯</span>
+</div>
+
+  <!-- Ucapan -->
+  <div class="papan-quotes">
+  “Semoga cinta kalian abadi dan bahagia selalu.”  
+</div>
+  <!-- Menu Cinta -->
+    <div class="floating-menu-container">
+    <button class="main-menu-btn" onclick="toggleMenu()">❤️</button>
+
+    <div class="sub-menu" id="subMenu">
+  <div class="menu-grid" id="menuUtama">
+    <div>
+      <button onclick="bukaPanel('albumPanel')">📸</button>
+      <div class="label">Album</div>
     </div>
+    <div>
+      <button onclick="bukaPanel('catatanPanel')">✍️</button>
+      <div class="label">Catatan</div>
+    </div>
+    <div>
+      <button onclick="bukaPanel('videoPanel')">🎥</button>
+      <div class="label">Video</div>
+    </div>
+    <div>
+      <button onclick="bukaPanel('dokumenPanel')">📂</button>
+      <div class="label">Dokumen</div>
+    </div>
+  </div>
 
-  <footer>
-  Hadiah digital dari  
-  <a href="https://wa.me/6282121218466" target="_blank" style="text-decoration: none; color: #25D366;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="width:18px; vertical-align: middle; margin-right: 4px;">
+  <!-- Panel Album -->
+  <div id="albumPanel" class="popup-panel">
+  <div class="popup-header">
+    <button onclick="tutupPopupPanel()" class="back-btn">🔙 Kembali</button>
+    <h3>Album Kenangan</h3>
+    <input type="file" accept="image/*" onchange="uploadFoto(event)">
+  </div>
+  <div id="fotoList" class="grid-foto"></div>
+</div>
+ 
+ <div id="catatanPanel" class="popup-panel">
+  <div class="popup-header">
+    <button onclick="tutupPopupPanel()" class="back-btn">🔙 Kembali</button>
+    <h3>Catatan Cinta</h3>
+    <div style="max-width: 500px; margin: auto; width: 100%;">
+  <textarea id="catatanInput" placeholder="Tulis sesuatu..." rows="4" style="width:100%;padding:1rem;border-radius:8px;margin-top:1rem;box-sizing:border-box;"></textarea>
+  <button onclick="simpanCatatan()" style="margin-top:0.5rem;background:#d6336c;color:white;border:none;padding:0.5rem 1rem;border-radius:8px;width:100%;">Simpan</button>
+</div>
+    <button onclick="simpanCatatan()" style="margin-top:0.5rem;background:#d6336c;color:white;border:none;padding:0.5rem 1rem;border-radius:8px;">Simpan</button>
+  </div>
+  <div id="daftarCatatan" style="margin-top:1rem;"></div>
+</div>
+  
+  <div id="videoPanel" class="popup-panel">
+  <div class="popup-header">
+    <button onclick="tutupPopupPanel()" class="back-btn">🔙 Kembali</button>
+    <h3>Video Kenangan</h3>
+    <input type="file" accept="video/*" onchange="uploadVideo(event)" style="margin-top:1rem;">
+  </div>
+  <div id="videoList" class="grid-video" style="margin-top:1rem;"></div>
+</div>
+  
+  <div id="dokumenPanel" class="popup-panel">
+  <div class="popup-header">
+    <button onclick="tutupPopupPanel()" class="back-btn">🔙 Kembali</button>
+    <h3>Dokumen Pribadi</h3>
+    <div style="max-width: 500px; margin: auto; width: 100%;">
+  <input type="text" id="judulDokumen" placeholder="Judul Dokumen"
+    style="width:100%;padding:0.7rem;border-radius:8px;margin-top:1rem;box-sizing:border-box;">
+  
+  <textarea id="isiDokumen" placeholder="Isi dokumen..." rows="5"
+    style="width:100%;padding:1rem;border-radius:8px;margin-top:0.5rem;box-sizing:border-box;"></textarea>
+  
+  <button onclick="simpanDokumen()"
+    style="margin-top:0.5rem;background:#d6336c;color:white;border:none;padding:0.5rem 1rem;border-radius:8px;width:100%;">
+    Simpan
+  </button>
+</div>
+  </div>
+  <div id="daftarDokumen" class="grid-dokumen" style="margin-top:1rem;"></div>
+</div></div>
+
+  <div id="catatanPanel" class="popup-panel">
+  <div class="popup-header">
+    <button onclick="tutupPopupPanel()" class="back-btn">🔙 Kembali</button>
+    <h3>Catatan Cinta</h3>
+    <textarea id="catatanInput" placeholder="Tulis sesuatu..." rows="4" style="width:100%;padding:1rem;border-radius:8px;margin-top:1rem;"></textarea>
+    <button onclick="simpanCatatan()" style="margin-top:0.5rem;background:#d6336c;color:white;border:none;padding:0.5rem 1rem;border-radius:8px;">Simpan</button>
+  </div>
+  <div id="daftarCatatan" style="margin-top:1rem;"></div>
+</div>
+ <!-- Footer Melayang -->
+<div class="footer-box">
+  <a href="https://wa.me/6282121218466" target="_blank" class="footer-link">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" class="wa-icon">
     <strong>Ragil Gunawan</strong>
-  </a> 💝  
-  <br>
-  <small>Melayani : Pembuatan Website,Aplikasi,Toko Online,
-  Undangan digital, dll</small>
-</footer>
+  </a>
+  <p class="footer-desc">
+    Terima jasa: Buat Website, Aplikasi, Undangan Online, dll
+  </p>
+</div>
 
-  <!-- Modal Konten -->
-  <div id="modal" class="hidden" style="position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index: 99;">
-    <div style="background: white; padding: 1rem; border-radius: 1rem; width: 90%; max-width: 400px;">
-      <h3 id="modalTitle">Judul</h3>
-      <div id="modalContent"></div>
-      <button onclick="tutupModal()" style="margin-top: 1rem; background: #fdd; border: none; padding: 0.5rem 1rem; border-radius: 8px;">Tutup</button>
-    </div>
-  </div>
+ <script>
+  const album = [
+    "https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/pngwing8823617845623531065.png",
+    "https://via.placeholder.com/150/ffcccb",
+    "https://via.placeholder.com/150/fce4ec"
+  ];
+  let current = 0;
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="hidden">
-    <span class="close" onclick="tutupLightbox()">✖</span>
-    <span class="nav prev" onclick="prevFoto()">❮</span>
-    <img id="lightboxImage" src="">
-    <span class="nav next" onclick="nextFoto()">❯</span>
-  </div>
-
-<!-- FIXED VERSION -->
-<script>
-  let currentIndex = 0;
-  let album = [];
-
-  function bukaModal(menu) {
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalContent = document.getElementById('modalContent');
-    modal.classList.remove('hidden');
-
-    // ✅ FIX: reset isi modal dan album
-    modalContent.innerHTML = '';
-    album = [];
-
-    if (menu === 'catatan') {
-      modalTitle.innerText = 'Catatan Harian';
-      const saved = localStorage.getItem('catatan') || '';
-      modalContent.innerHTML = `
-        <textarea id="catatanInput" rows="6" style="width:100%;padding:0.5rem">${saved}</textarea>
-        <button onclick="simpanCatatan()" style="margin-top:1rem;padding:0.5rem 1rem;background:#d4edda;border:none;border-radius:8px;">Simpan</button>
-      `;
-    }
-
-    else if (menu === 'dokumen') {
-      modalTitle.innerText = 'Upload Dokumen';
-      const saved = localStorage.getItem('dokumenName') || 'Belum ada';
-      modalContent.innerHTML = `
-        <input type="file" id="dokumenInput" accept=".pdf,.doc,.docx"/>
-        <p style="margin-top:0.5rem">Tersimpan: <strong>${saved}</strong></p>
-        <button onclick="simpanDokumen()" style="margin-top:1rem;padding:0.5rem 1rem;background:#cce5ff;border:none;border-radius:8px;">Simpan</button>
-      `;
-    }
-
-    else if (menu === 'album') {
-      modalTitle.innerText = 'Album Foto';
-      album = JSON.parse(localStorage.getItem('albumFoto') || '[]');
-      let galleryHTML = album.map((src, i) => `<img src="${src}" onclick="bukaLightbox(${i})"/>`).join('');
-      modalContent.innerHTML = `
-        <input type="file" accept="image/*" onchange="tambahFotoKeGaleri(event)">
-        <div id="galeriFoto">${galleryHTML}</div>
-      `;
-    }
-
-    else if (menu === 'video') {
-      modalTitle.innerText = 'Video Kenangan';
-      modalContent.innerHTML = `
-        <input type="file" accept="video/*" onchange="previewVideo(event)">
-        <div id="videoPreview" style="margin-top:1rem;"></div>
-      `;
-    }
-  }
-
-  function tutupModal() {
-    document.getElementById('modal').classList.add('hidden');
-  }
-
-  function simpanCatatan() {
-    const value = document.getElementById('catatanInput').value;
-    localStorage.setItem('catatan', value);
-    alert('Catatan disimpan!');
-  }
-
-  function simpanDokumen() {
-    const input = document.getElementById('dokumenInput');
-    const file = input.files[0];
-    if (file) {
-      localStorage.setItem('dokumenName', file.name);
-      alert('Nama dokumen disimpan!');
-    } else {
-      alert('Pilih file dulu ya!');
-    }
-  }
-
-  function tambahFotoKeGaleri(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const dataUrl = e.target.result;
-      album.push(dataUrl);
-      localStorage.setItem('albumFoto', JSON.stringify(album));
-      const galeri = document.getElementById('galeriFoto');
-      const img = document.createElement('img');
-      img.src = dataUrl;
-      img.onclick = () => bukaLightbox(album.length - 1);
-      galeri.appendChild(img);
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function previewVideo(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById('videoPreview');
-    if (file) {
-      const url = URL.createObjectURL(file);
-      preview.innerHTML = `<video src="${url}" controls style="max-width:100%;border-radius:8px"></video>`;
-    }
-  }
-
-  // Lightbox fungsi
   function bukaLightbox(index) {
-    currentIndex = index;
-    const lightbox = document.getElementById('lightbox');
-    document.getElementById('lightboxImage').src = album[currentIndex];
-    lightbox.classList.remove('hidden');
+    current = index;
+    document.getElementById("lightboxImage").src = album[current];
+    document.getElementById("lightbox").style.display = "flex";
   }
 
   function tutupLightbox() {
-    document.getElementById('lightbox').classList.add('hidden');
+    document.getElementById("lightbox").style.display = "none";
   }
 
   function nextFoto() {
-    currentIndex = (currentIndex + 1) % album.length;
-    document.getElementById('lightboxImage').src = album[currentIndex];
+    current = (current + 1) % album.length;
+    document.getElementById("lightboxImage").src = album[current];
   }
 
   function prevFoto() {
-    currentIndex = (currentIndex - 1 + album.length) % album.length;
-    document.getElementById('lightboxImage').src = album[currentIndex];
+    current = (current - 1 + album.length) % album.length;
+    document.getElementById("lightboxImage").src = album[current];
   }
-
-  document.getElementById('modal').addEventListener('click', function(e) {
-    if (e.target === this) tutupModal();
-  });
 </script>
-<canvas id="bungaCanvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:10;"></canvas>
-
 <script>
-const canvas = document.getElementById('bungaCanvas');
-const ctx = canvas.getContext('2d');
+  function toggleMenu() {
+    const subMenu = document.getElementById('subMenu');
+    const mainBtn = document.querySelector('.main-menu-btn');
+    const isOpen = subMenu.classList.contains('show');
 
-let bunga = [];
+    if (!isOpen) {
+      subMenu.classList.remove('hidden');
+      void subMenu.offsetWidth; // restart animasi
+      subMenu.classList.add('show');
+      mainBtn.classList.add('open');
+    } else {
+      subMenu.classList.remove('show');
+      setTimeout(() => subMenu.classList.add('hidden'), 400);
+      mainBtn.classList.remove('open');
+    }
+  }
+  
+let albumData = JSON.parse(localStorage.getItem("albumData") || "[]");
+let fotoAktif = 0;
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+function simpanAlbum() {
+  localStorage.setItem("albumData", JSON.stringify(albumData));
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
 
-// Membuat kelopak bunga
-function buatBunga() {
-  return {
-    x: Math.random() * canvas.width,
-    y: -20,
-    r: 8 + Math.random() * 5,
-    d: 1 + Math.random() * 1.5,
-    color: `rgba(255, ${100 + Math.random()*100}, ${200 + Math.random()*55}, 0.8)`,
-    rot: Math.random() * 360,
-    drift: Math.random() * 2 - 1
+function tampilkanAlbum() {
+  const fotoList = document.getElementById("fotoList");
+  fotoList.innerHTML = "";
+  albumData.forEach((src, index) => {
+    const div = document.createElement("div");
+    div.className = "grid-foto-item";
+    div.innerHTML = `
+      <img src="${src}" onclick="bukaFotoPenuh(${index})">
+      <button onclick="hapusFoto(${index})">Hapus</button>
+    `;
+    fotoList.appendChild(div);
+  });
+}
+
+function uploadFoto(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    albumData.push(e.target.result);
+    simpanAlbum();
+    tampilkanAlbum();
+  };
+  reader.readAsDataURL(file);
+}
+
+function hapusFoto(index) {
+  if (confirm("Hapus foto ini?")) {
+    albumData.splice(index, 1);
+    simpanAlbum();
+    tampilkanAlbum();
+    tutupLightbox();
+  }
+}
+
+function bukaFotoPenuh(index) {
+  fotoAktif = index;
+  document.getElementById("lightboxImage").src = albumData[fotoAktif];
+  document.getElementById("lightbox").style.display = "flex";
+}
+
+function nextFoto() {
+  fotoAktif = (fotoAktif + 1) % albumData.length;
+  document.getElementById("lightboxImage").src = albumData[fotoAktif];
+}
+
+function prevFoto() {
+  fotoAktif = (fotoAktif - 1 + albumData.length) % albumData.length;
+  document.getElementById("lightboxImage").src = albumData[fotoAktif];
+}
+</script>
+<script>
+function bukaAlbum() {
+  document.getElementById("albumPanel").style.display = "block";
+  tampilkanAlbum();
+}
+</script>
+<script>
+function bukaPanel(panelId) {
+  // tampilkan panel sebagai popup
+  document.getElementById(panelId).style.display = "flex";
+  if (panelId === 'albumPanel') {
+    tampilkanAlbum();
+  }
+}
+
+function tutupPopupPanel() {
+  document.querySelectorAll(".popup-panel").forEach(el => el.style.display = "none");
+}
+
+let catatanData = JSON.parse(localStorage.getItem("catatanData") || "[]");
+
+function simpanCatatan() {
+  const isi = document.getElementById("catatanInput").value.trim();
+  if (!isi) return alert("Catatan tidak boleh kosong!");
+
+  catatanData.push({ isi, waktu: new Date().toLocaleString() });
+  localStorage.setItem("catatanData", JSON.stringify(catatanData));
+  document.getElementById("catatanInput").value = "";
+  tampilkanCatatan();
+}
+
+function tampilkanCatatan() {
+  const daftar = document.getElementById("daftarCatatan");
+  daftar.innerHTML = "";
+
+  catatanData.slice().reverse().forEach((item, index) => {
+    const i = catatanData.length - 1 - index; // indeks asli
+    const div = document.createElement("div");
+    div.className = "catatan-item";
+    div.innerHTML = `
+      <div class="catatan-preview">${item.isi}</div>
+      <div class="catatan-buttons">
+        <button class="lihat" onclick="alert('${item.isi.replace(/'/g, "\\'")}')">Lihat</button>
+        <button class="hapus" onclick="hapusCatatan(${i})">Hapus</button>
+      </div>
+    `;
+    daftar.appendChild(div);
+  });
+}
+
+function hapusCatatan(index) {
+  if (confirm("Yakin hapus catatan ini?")) {
+    catatanData.splice(index, 1);
+    localStorage.setItem("catatanData", JSON.stringify(catatanData));
+    tampilkanCatatan();
+  }
+}
+
+function bukaPanel(panelId) {
+  document.getElementById(panelId).style.display = "flex";
+
+  if (panelId === 'albumPanel') tampilkanAlbum();
+  if (panelId === 'catatanPanel') tampilkanCatatan();
+}
+
+function simpanCatatan() {
+  const isi = document.getElementById("catatanInput").value.trim();
+  if (!isi) return alert("Catatan kosong!");
+
+  catatanData.push({ isi, waktu: new Date().toLocaleString() });
+  localStorage.setItem("catatanData", JSON.stringify(catatanData));
+  document.getElementById("catatanInput").value = "";
+  tampilkanCatatan();
+}
+
+function tampilkanCatatan() {
+  const daftar = document.getElementById("daftarCatatan");
+  daftar.innerHTML = "";
+
+  catatanData.slice().reverse().forEach((item, index) => {
+    const i = catatanData.length - 1 - index; // indeks asli
+    const div = document.createElement("div");
+    div.className = "catatan-item";
+    div.innerHTML = `
+      <div><strong>${item.isi.length > 50 ? item.isi.slice(0, 50) + "..." : item.isi}</strong></div>
+      <div class="waktu">${item.waktu}</div>
+      <div class="catatan-buttons">
+        <button class="lihat" onclick="alert('${item.isi.replace(/'/g, "\\'")}')">Lihat</button>
+        <button class="hapus" onclick="hapusCatatan(${i})">Hapus</button>
+      </div>
+    `;
+    daftar.appendChild(div);
+  });
+}
+
+function hapusCatatan(index) {
+  if (confirm("Yakin hapus catatan ini?")) {
+    catatanData.splice(index, 1);
+    localStorage.setItem("catatanData", JSON.stringify(catatanData));
+    tampilkanCatatan();
+  }
+}
+
+let videoData = JSON.parse(localStorage.getItem("videoData") || "[]");
+
+function uploadVideo(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    videoData.push(e.target.result);
+    localStorage.setItem("videoData", JSON.stringify(videoData));
+    tampilkanVideo();
+  };
+  reader.readAsDataURL(file);
+}
+
+function tampilkanVideo() {
+  const container = document.getElementById("videoList");
+  container.innerHTML = "";
+
+  videoData.forEach((src, index) => {
+    const div = document.createElement("div");
+    div.className = "video-item";
+    div.innerHTML = `
+      <video controls src="${src}"></video>
+      <button onclick="hapusVideo(${index})">Hapus</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function hapusVideo(index) {
+  if (confirm("Hapus video ini?")) {
+    videoData.splice(index, 1);
+    localStorage.setItem("videoData", JSON.stringify(videoData));
+    tampilkanVideo();
+  }
+}
+
+let dokumenData = JSON.parse(localStorage.getItem("dokumenData") || "[]");
+
+function simpanDokumen() {
+  const judul = document.getElementById("judulDokumen").value.trim();
+  const isi = document.getElementById("isiDokumen").value.trim();
+
+  if (!judul || !isi) return alert("Judul dan isi tidak boleh kosong!");
+
+  dokumenData.push({ judul, isi });
+  localStorage.setItem("dokumenData", JSON.stringify(dokumenData));
+  document.getElementById("judulDokumen").value = "";
+  document.getElementById("isiDokumen").value = "";
+  tampilkanDokumen();
+}
+
+function tampilkanDokumen() {
+  const daftar = document.getElementById("daftarDokumen");
+  daftar.innerHTML = "";
+
+  dokumenData.slice().reverse().forEach((item, index) => {
+    const i = dokumenData.length - 1 - index;
+    const div = document.createElement("div");
+    div.className = "dokumen-item";
+    div.innerHTML = `
+      <div class="dokumen-judul">${item.judul}</div>
+      <div class="dokumen-buttons">
+        <button class="lihat" onclick="alert('${item.isi.replace(/'/g, "\\'")}')">Lihat</button>
+        <button class="hapus" onclick="hapusDokumen(${i})">Hapus</button>
+      </div>
+    `;
+    daftar.appendChild(div);
+  });
+}
+
+function hapusDokumen(index) {
+  if (confirm("Hapus dokumen ini?")) {
+    dokumenData.splice(index, 1);
+    localStorage.setItem("dokumenData", JSON.stringify(dokumenData));
+    tampilkanDokumen();
+  }
+}
+
+function bukaPanel(panelId) {
+  document.querySelectorAll(".popup-panel").forEach(p => p.style.display = "none");
+  document.getElementById(panelId).style.display = "flex";
+
+  if (panelId === 'albumPanel') tampilkanAlbum();
+  if (panelId === 'catatanPanel') tampilkanCatatan();
+  if (panelId === 'videoPanel') tampilkanVideo();
+  if (panelId === 'dokumenPanel') tampilkanDokumen();
+}
+</script>
+<script>
+    let db;
+const DB_NAME = "KadoCintaVideo";
+const STORE_NAME = "videos";
+
+function initDB() {
+  const request = indexedDB.open(DB_NAME, 1);
+
+  request.onupgradeneeded = function(e) {
+    db = e.target.result;
+    if (!db.objectStoreNames.contains(STORE_NAME)) {
+      db.createObjectStore(STORE_NAME, { keyPath: "id", autoIncrement: true });
+    }
+  };
+
+  request.onsuccess = function(e) {
+    db = e.target.result;
+    tampilkanVideo();
+  };
+
+  request.onerror = function(e) {
+    console.error("DB Error:", e);
   };
 }
 
-for (let i = 0; i < 30; i++) bunga.push(buatBunga());
+document.addEventListener("DOMContentLoaded", initDB);
 
-function gambarBunga() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  bunga.forEach((b, i) => {
-    ctx.save();
-    ctx.translate(b.x, b.y);
-    ctx.rotate(b.rot * Math.PI / 180);
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.quadraticCurveTo(-b.r, b.r, 0, 2*b.r);
-    ctx.quadraticCurveTo(b.r, b.r, 0, 0);
-    ctx.fillStyle = b.color;
-    ctx.fill();
-    ctx.restore();
+function uploadVideo(event) {
+  const file = event.target.files[0];
+  if (!file) return;
 
-    b.y += b.d;
-    b.x += b.drift;
-    b.rot += 1;
-
-    if (b.y > canvas.height || b.x < -50 || b.x > canvas.width + 50) {
-      bunga[i] = buatBunga();
-      bunga[i].y = -10;
-    }
-  });
-
-  requestAnimationFrame(gambarBunga);
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    const store = tx.objectStore(STORE_NAME);
+    store.add({ data: e.target.result });
+    tx.oncomplete = tampilkanVideo;
+  };
+  reader.readAsDataURL(file);
 }
-gambarBunga();
-</script>
-<script>
-  const slider = document.getElementById('slider');
-  let index = 0;
 
-  function autoSlide() {
-    const images = slider.querySelectorAll('img');
-    index = (index + 1) % images.length;
-    slider.scrollTo({
-      left: slider.clientWidth * index,
-      behavior: 'smooth'
+function tampilkanVideo() {
+  const container = document.getElementById("videoList");
+  container.innerHTML = "";
+
+  const tx = db.transaction(STORE_NAME, "readonly");
+  const store = tx.objectStore(STORE_NAME);
+  const request = store.getAll();
+
+  request.onsuccess = function() {
+    const videos = request.result;
+
+    videos.forEach(video => {
+      const div = document.createElement("div");
+      div.className = "video-item";
+      div.innerHTML = `
+        <video controls src="${video.data}"></video>
+        <button onclick="hapusVideo(${video.id})">Hapus</button>
+      `;
+      container.appendChild(div);
     });
-  }
-
-  setInterval(autoSlide, 9000); // Ganti tiap 9 detik
-</script>
-<script>
-const teks = ['A', 'N', 'D', 'I', '❤️', 'S', 'I', 'N', 'T', 'A'];
-const judul = document.getElementById('judulKetik');
-let i = 0;
-
-function ketikNama() {
-  if (i < teks.length) {
-    const huruf = teks[i];
-    if (huruf === '❤️') {
-      const img = document.createElement('img');
-      img.src = "https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/10000064902652039691045067748.png";
-      img.alt = "Love";
-      img.style.height = "1.4em";
-      img.style.verticalAlign = "middle";
-      img.style.margin = "0 6px";
-      judul.appendChild(img);
-    } else {
-      judul.innerHTML += huruf;
-    }
-    i++;
-    setTimeout(ketikNama, 300); // kecepatan ketik
-  }
+  };
 }
-ketikNama();
-</script>
-<audio id="musik" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" loop></audio>
 
-<button id="muteBtn" onclick="toggleMusik()" style="
-  position:fixed; top:1rem; right:1rem;
-  background:rgba(255,255,255,0.8);
-  border:none; border-radius:50%;
-  width:40px; height:40px;
-  font-size:1.2rem; z-index:99;">
-  ▶️
-</button>
+function hapusVideo(id) {
+  const tx = db.transaction(STORE_NAME, "readwrite");
+  const store = tx.objectStore(STORE_NAME);
+  store.delete(id);
+  tx.oncomplete = tampilkanVideo;
+}
+</script>
 
 <script>
-  const musik = document.getElementById('musik');
-  const muteBtn = document.getElementById('muteBtn');
-  let isPlaying = false;
+    let musikAktif = false;
 
-  function toggleMusik() {
-    if (!isPlaying) {
-      musik.play();
-      isPlaying = true;
-      muteBtn.innerText = '🔊';
-    } else {
-      musik.pause();
-      isPlaying = false;
-      muteBtn.innerText = '▶️';
-    }
+function toggleMusik() {
+  const audio = document.getElementById("musikLatar");
+  const btn = document.getElementById("musikBtn");
+
+  if (musikAktif) {
+    audio.pause();
+    btn.innerHTML = "🔈";
+  } else {
+    audio.play();
+    btn.innerHTML = "🔊";
   }
+
+  musikAktif = !musikAktif;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const audio = document.getElementById("musikLatar");
+  setTimeout(() => {
+    audio.play().then(() => {
+      musikAktif = true;
+      document.getElementById("musikBtn").innerHTML = "🔊";
+    }).catch(() => {
+      // Autoplay diblokir → user harus klik tombol dulu
+    });
+  }, 1000);
+});
 </script>
 </body>
-</html> 
+</html>
